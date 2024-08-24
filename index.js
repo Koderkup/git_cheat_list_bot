@@ -1,65 +1,72 @@
 require("dotenv").config();
-const { Bot, GrammyError, HttpError, InlineKeyboard } = require("grammy");
+const { Bot, GrammyError, HttpError } = require("grammy");
+const {
+  getAnswer,
+  getMainMenuKeyboard,
+  getInitializing,
+  getSynchronizing,
+  getStage,
+  getLog,
+  getCommit
+} = require("./utils/utils");
 const bot = new Bot(process.env.BOT_API_KEY);
-
-bot.api.setMyCommands([
-  { command: "start", description: "Start the bot" },
-  {
-    command: "initialize_repo",
-    description: "Initialize Repository",
-  },
-  {
-    command: "synchro_repositories",
-    description: "Synchronization of local and remote repositories",
-  },
-  
-]);
 
 bot.command("start", async (ctx) => {
   await ctx.reply(
     "Hello! I'm a bot. I'm going to remind you of the main Git commands!"
   );
 });
-bot.command("initialize_repo", async (ctx) => {
-  const inlineKeyboardInit = new InlineKeyboard().text(
-    "Initialize Repository",
-    "git init"
-  );
-  await ctx.reply("Git command to initialize a repository:", {
-    reply_markup: inlineKeyboardInit,
-  });
+bot.command("menu", async (ctx) => {
+  const menuKeyboard = await getMainMenuKeyboard();
+  await ctx.reply("Main Menu", { reply_markup: menuKeyboard });
 });
 
-bot.command("synchro_repositories", async (ctx) => {
-  const inlineKeyboardSynchro = new InlineKeyboard()
-    .text("Synchronization of local and remote repositories", "git synchro")
-    .row()
-    .text("Check that the repositories are actually linked", "git remote")
-    .row()
-    .text('Upload all commits from the local repository to the remote ', 'git push')
-    .row()
-  await ctx.reply("Git command to synchronize local and remote repositories:", {
-    reply_markup: inlineKeyboardSynchro,
-  });
+bot.on("message", async (ctx) => {
+  const data = ctx.message.text;
+  if (ctx.message.text) {
+    switch (data) {
+      case "Initialize Repository":
+        const inlineKeyboardInit = await getInitializing();
+        await ctx.reply("Initializing repository...", {
+          reply_markup: inlineKeyboardInit,
+        });
+        break;
+      case "Synchronize Repositories":
+        const inlineKeyboardSynchro = await getSynchronizing();
+        await ctx.reply("Synchronizing repositories...", {
+          reply_markup: inlineKeyboardSynchro,
+        });
+        break;
+      case "Prepare for Commit":
+        const inlineKeyboardStage = await getStage();
+        await ctx.reply("Preparing for commit...", {
+          reply_markup: inlineKeyboardStage,
+        });
+        break;
+      case "Commit information":
+        const inlineKeyboardLog = await getLog();
+        await ctx.reply("Log:", { reply_markup: inlineKeyboardLog });
+        break;
+      case "View file status":
+        await ctx.reply(getAnswer("git status"));
+        break;
+      case "Change the latest commit":
+        await ctx.reply(getAnswer("git commit --amend"));
+        break;
+        case "Creating & publishing a commit":
+          const inlineKeyboardCommit = await getCommit();
+          await ctx.reply("Committing...", { reply_markup: inlineKeyboardCommit });
+          break;
+      default:
+        break;
+    }
+  }
 });
+
 bot.on("callback_query:data", async (ctx) => {
   const data = ctx.callbackQuery.data;
   await ctx.answerCallbackQuery();
-  if (data === "git init") {
-    await ctx.reply("Git command to initialize a repository is: git init");
-  } else if (data === "git synchro") {
-    await ctx.reply(
-      "Git command to synchronize local and remote repositories: git remote add origin <url>"
-    );
-  } else if (data === "git remote") {
-    await ctx.reply(
-      "Git command to check that the repositories are actually linked: git remote -v"
-    );
-  } else if(data==='git push'){
-    await ctx.reply(
-      "Git command to upload all commits from the local repository to the remote (first time): git push origin <master|main> further: git push"
-    );
-  }
+  await ctx.reply(getAnswer(data));
 });
 bot.catch((err) => {
   const ctx = err.ctx;

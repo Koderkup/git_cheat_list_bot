@@ -1,0 +1,13 @@
+[
+  { "command": "start", "description": "Start the bot" },
+  { "command": "initialize_repo", "description": "Initialize Repository" },
+  {
+    "command": "synchro_repositories",
+    "description": "Synchronization of local and remote repositories"
+  },
+  {
+    "command": "preparing_for_commit",
+    "description": "Preparing a file for commit"
+  },
+  {"command": "menu", "description": "main Git commands"}
+]

@@ -1,0 +1,12 @@
+{
+  "git init": "Git command to initialize a repository is: `git init`",
+  "git commit": "`git commit -m 'Commit comment.' ` - make a commit and leave a comment to make it easier to understand what changes have been made",
+  "git synchro": "Git command to synchronize local and remote repositories: \n`git remote add origin <url>`",
+  "git remote": "Git command to check that the repositories are actually linked: \n`git remote -v`",
+  "git push": "Git command to upload all commits from the local repository to the remote \n(first time): `git push origin <master|main>` \nfurther: `git push`",
+  "git add": "Git command to add files to the staging area: \n `git add todo.txt` prepare the todo.txt file for the commit\n `git add --all` - prepare for commit at once all the files in which there were changes, and all new files\n `git add .` — prepare the current folder and all the files in it for commit.",
+  "git log": "Display a detailed history of commits:\n `git log`",
+  "git log --oneline": "Show brief information about commits (a shortened hash and message):\n `git log --oneline`",
+  "git status": "Show the current state of the repository:\n `git satus`",
+  "git commit --amend": "`git commit --amend --no-edit` - add changes to the last commit and leave the message the same\n`git commit --amend -m 'New message' ` - change the message for the last commit to New message."
+}

@@ -4,7 +4,6 @@
   "description": "cheat sheet list of git command",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
   "repository": {
