@@ -7,7 +7,11 @@ const {
   getSynchronizing,
   getStage,
   getLog,
-  getCommit
+  getCommit,
+  getRollback,
+  getCreateBranches,
+  getDeleteBranch,
+  getWorkingWithRemote,
 } = require("./utils/utils");
 const bot = new Bot(process.env.BOT_API_KEY);
 
@@ -27,25 +31,25 @@ bot.on("message", async (ctx) => {
     switch (data) {
       case "Initialize Repository":
         const inlineKeyboardInit = await getInitializing();
-        await ctx.reply("Initializing repository...", {
+        await ctx.reply("Initializing repository...👇", {
           reply_markup: inlineKeyboardInit,
         });
         break;
       case "Synchronize Repositories":
         const inlineKeyboardSynchro = await getSynchronizing();
-        await ctx.reply("Synchronizing repositories...", {
+        await ctx.reply("Synchronizing repositories...👇", {
           reply_markup: inlineKeyboardSynchro,
         });
         break;
       case "Prepare for Commit":
         const inlineKeyboardStage = await getStage();
-        await ctx.reply("Preparing for commit...", {
+        await ctx.reply("Preparing for commit...👇", {
           reply_markup: inlineKeyboardStage,
         });
         break;
       case "Commit information":
         const inlineKeyboardLog = await getLog();
-        await ctx.reply("Log:", { reply_markup: inlineKeyboardLog });
+        await ctx.reply("Log:👇", { reply_markup: inlineKeyboardLog });
         break;
       case "View file status":
         await ctx.reply(getAnswer("git status"));
@@ -53,10 +57,48 @@ bot.on("message", async (ctx) => {
       case "Change the latest commit":
         await ctx.reply(getAnswer("git commit --amend"));
         break;
-        case "Creating & publishing a commit":
-          const inlineKeyboardCommit = await getCommit();
-          await ctx.reply("Committing...", { reply_markup: inlineKeyboardCommit });
-          break;
+      case "Creating & publishing a commit":
+        const inlineKeyboardCommit = await getCommit();
+        await ctx.reply("Committing...👇", {
+          reply_markup: inlineKeyboardCommit,
+        });
+        break;
+      case "Rollback commits":
+        const inlineKeyboardRollback = await getRollback();
+        await ctx.reply("Rollback commits...👇", {
+          reply_markup: inlineKeyboardRollback,
+        });
+        break;
+      case "View changes":
+        await ctx.reply(getAnswer("git diff"));
+        break;
+      case "Cloning repository":
+        await ctx.reply(getAnswer("git clone"));
+        break;
+      case "Creating branches":
+        const inlineKeyboardCreate = await getCreateBranches();
+        await ctx.reply("Creating branches...👇", {
+          reply_markup: inlineKeyboardCreate,
+        });
+        break;
+      case "Branch comparison":
+        await ctx.reply(getAnswer("git diff main"));
+        break;
+      case "Removing branches":
+        const inlineKeyboardDelete = await getDeleteBranch();
+        await ctx.reply("Removing branches...👇", {
+          reply_markup: inlineKeyboardDelete,
+        });
+        break;
+      case "Merging branches":
+        await ctx.reply(getAnswer("git merge"));
+        break;
+      case "Working with a remote repository":
+        const inlineKeyboardWorking = await getWorkingWithRemote();
+        await ctx.reply("Working with a remote repository...👇", {
+          reply_markup: inlineKeyboardWorking,
+        });
+        break;
       default:
         break;
     }

@@ -17,10 +17,28 @@ async function getMainMenuKeyboard() {
     .resized()
     .row()
     .text("Commit information", "commit_information")
+    .text("View file status", "git status")
     .resized()
     .row()
-    .text("View file status", "git status")
     .text("Change the latest commit")
+    .text("Rollback commits")
+    .row()
+    .resized()
+    .text("View changes")
+    .text("Cloning repository")
+    .row()
+    .resized()
+    .text("Creating branches")
+    .text("Branch navigation")
+    .row()
+    .resized()
+    .text("Branch comparison")
+    .text("Removing branches")
+    .row()
+    .resized()
+    .text("Merging branches")
+    .text("Working with a remote repository")
+    .row()
     .resized()
     .oneTime();
 }
@@ -29,10 +47,7 @@ async function getInitializing() {
 }
 async function getSynchronizing() {
   return new InlineKeyboard()
-    .text(
-      "🔄 Synchronization of local  and remote repositories",
-      "git synchro"
-    )
+    .text("🔄 Synchronization of local  and remote repositories", "git synchro")
     .row()
     .text("🔄 Check that the repositories are actually linked", "git remote")
     .row()
@@ -58,7 +73,42 @@ async function getCommit() {
     .text("🔧 Make a commit", "git commit")
     .text("🔧 Add changes to remote", "git push");
 }
+async function getRollback() {
+  return new InlineKeyboard()
+    .text("🔙 Revert the files to the latest version", "git restore")
+    .row()
+    .text("🔙 Delete all uncommitted changes", "git reset");
+}
 
+async function getCreateBranches() {
+  return new InlineKeyboard()
+    .text("🌿 Create a new branch", "git branch create")
+    .row()
+    .text("🌿 Create a new branch and checkout it", "git checkout");
+}
+
+async function getBtanchnavigation() {
+  return new InlineKeyboard()
+    .text("🔙 Show what branches there are", "git branch")
+    .text("🔙 Branches, both local and remote", "git branch -a")
+    .text("🔙 Switch branch", "git checkout feature/br");
+}
+
+async function getDeleteBranch() {
+  return new InlineKeyboard()
+    .text("🧹 Delete a branch", "git branch -d")
+    .row()
+    .text("🧹 Delete a branch that is not merged", "git branch -D");
+}
+
+async function getWorkingWithRemote() {
+  return new InlineKeyboard()
+    .text("🌐 Post a new branch", "git push -u")
+    .row()
+    .text("🌐 Push additional changes to branch", "git push my-branch")
+    .row()
+    .text("🌐 Pull changes to the current branch", "git pull");
+}
 module.exports = {
   getAnswer,
   getMainMenuKeyboard,
@@ -66,6 +116,9 @@ module.exports = {
   getSynchronizing,
   getStage,
   getLog,
-  getCommit
+  getCommit,
+  getRollback,
+  getCreateBranches,
+  getDeleteBranch,
+  getWorkingWithRemote,
 };
-

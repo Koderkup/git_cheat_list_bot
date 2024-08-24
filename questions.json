@@ -8,5 +8,21 @@
   "git log": "Display a detailed history of commits:\n `git log`",
   "git log --oneline": "Show brief information about commits (a shortened hash and message):\n `git log --oneline`",
   "git status": "Show the current state of the repository:\n `git satus`",
-  "git commit --amend": "`git commit --amend --no-edit` - add changes to the last commit and leave the message the same\n`git commit --amend -m 'New message' ` - change the message for the last commit to New message."
+  "git commit --amend": "`git commit --amend --no-edit` - add changes to the last commit and leave the message the same\n`git commit --amend -m 'New message' ` - change the message for the last commit to New message.",
+  "git restore": " `git restore --staged hello.txt` - transfer the hello.txt file from the staged state back to untracked or modified\n `git restore hello.txt` - return the hello.txt file to the latest version that was saved via git commit or git add",
+  "git reset": " `git reset --hard b576d89`- delete all uncommitted changes from staging and the “working area” up to the specified commit.",
+  "git diff": "`git diff` - show changes in the “working area”, that is, in modified files \n `git diff a9928ab 11bada1` - print the difference between two commits\n `git diff --staged` - show changes that have been added to staged files",
+  "git clone": "`git clone git@github.com:Praktikum/first-project.git` - clone the repository with the URL first-project.git from your Praktikum account to my local computer.",
+  "git branch create": "`git branch feature/the-finest-branch` - create a branch from the current one with the name feature/the-finest-branch",
+  "git checkout": "`git checkout -b feature/the-finest-branch` - create a branch feature/the-finest-branch and immediately switch to it",
+  "git branch": "`git branch` - show what branches there are in the repository and which one I’m in (the current branch will be marked with a *)",
+  "git branch -a": "`git branch -a` - show all known branches, both local (in the local repository) and remote (in origin, or on GitHub)",
+  "git checkout feature/br": "`git checkout feature/br` - switch to the feature/br branch",
+  "git diff main": "`git diff main HEAD`- show the difference between the main branch and the pointer to HEADn\n `git diff HEAD~2 HEAD` - show the difference between the commit that was two commits ago and the current one",
+  "git branch -d": "`git branch -d br-name` - Delete the br-name branch, but only if it is part of main",
+  "git branch -D": "`git branch -D br-name` - Delete the br-name branch, even if it is not merged into main",
+  "git merge": "`git merge main`- merge the main branch with the current active branch.",
+  "git push -u": "`git push -u origin my-branch`- push the new branch my-branch to the remote repository and link the local branch with the remote one, so that with additional commits you can simply write git push without -u",
+  "git push my-branch": "`git push my-branch` - push additional changes to the my-branch branch that already exists in the remote repository",
+  "git pull": "`git pull`- pull changes to the current branch from a remote repository"
 }
