@@ -12,6 +12,7 @@ const {
   getCreateBranches,
   getDeleteBranch,
   getWorkingWithRemote,
+  getBranchNavigation,
 } = require("./utils/utils");
 const bot = new Bot(process.env.BOT_API_KEY);
 
@@ -29,7 +30,7 @@ bot.on("message", async (ctx) => {
   const data = ctx.message.text;
   if (ctx.message.text) {
     switch (data) {
-      case "Initialize Repository":
+      case "Initialize repository":
         const inlineKeyboardInit = await getInitializing();
         await ctx.reply("Initializing repository...👇", {
           reply_markup: inlineKeyboardInit,
@@ -41,7 +42,7 @@ bot.on("message", async (ctx) => {
           reply_markup: inlineKeyboardSynchro,
         });
         break;
-      case "Prepare for Commit":
+      case "Prepare for commit":
         const inlineKeyboardStage = await getStage();
         await ctx.reply("Preparing for commit...👇", {
           reply_markup: inlineKeyboardStage,
@@ -79,6 +80,12 @@ bot.on("message", async (ctx) => {
         const inlineKeyboardCreate = await getCreateBranches();
         await ctx.reply("Creating branches...👇", {
           reply_markup: inlineKeyboardCreate,
+        });
+        break;
+      case "Branch navigation":
+        const inlineKeyboardBranch = await getBranchNavigation();
+        await ctx.reply("Branch navigation...👇", {
+          reply_markup: inlineKeyboardBranch,
         });
         break;
       case "Branch comparison":

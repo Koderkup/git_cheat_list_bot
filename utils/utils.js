@@ -87,10 +87,12 @@ async function getCreateBranches() {
     .text("🌿 Create a new branch and checkout it", "git checkout");
 }
 
-async function getBtanchnavigation() {
+async function getBranchNavigation() {
   return new InlineKeyboard()
     .text("🔙 Show what branches there are", "git branch")
+    .row()
     .text("🔙 Branches, both local and remote", "git branch -a")
+    .row()
     .text("🔙 Switch branch", "git checkout feature/br");
 }
 
@@ -121,4 +123,5 @@ module.exports = {
   getCreateBranches,
   getDeleteBranch,
   getWorkingWithRemote,
+  getBranchNavigation,
 };
